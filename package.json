@@ -1,0 +1,17 @@
+{
+  "name": "bookmark_url_shortner",
+  "version": "1.0.0",
+  "description": "bookmark creator with url shortner",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "codeGuddae",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.4.5",
+    "shorthash": "0.0.2",
+    "validator": "^10.11.0"
+  }
+}

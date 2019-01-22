@@ -1,0 +1,26 @@
+1. npm init --  to create package.json file
+2. npm install -- save express
+3. require express, listen to port and write code
+4. setup DB -- npm install --save mongoose
+5. require mongoose and configure the DB
+    -mongoose.Promise =  global.Promise
+    -connect using mongoose.connect and handle the Promise
+
+6. create a schema for the DB using mongoose
+    - const{ Schema } = mongoose
+    - const userDefSchema = new Schema({
+        all fields, its types, its validations
+        fieldName: {
+            type: String/Number/Boolean/Date,
+            required: true/false,
+            validations/ mongoose properties
+        }
+    })    
+
+7. create a model 
+    - const UserDefModelName = mongoose.model('UserDefName', userDefSchema) 
+
+8. create routes and use them
+9. to fetch data from DB
+    - ModelName.methodName()  // find, findall, ........  
+
