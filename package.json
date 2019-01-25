@@ -10,8 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
+    "express-useragent": "^1.0.12",
     "mongoose": "^5.4.5",
+    "morgan": "^1.9.1",
     "shorthash": "0.0.2",
+    "useragent": "^2.3.0",
     "validator": "^10.11.0"
   }
 }

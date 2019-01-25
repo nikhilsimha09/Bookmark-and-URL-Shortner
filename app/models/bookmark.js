@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const shorthash = require('shorthash')
-
 const { Schema }= mongoose
 const bookmarkSchema = new Schema({
     title: {
@@ -30,15 +29,21 @@ const bookmarkSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    clicks: [{
+        clickedDateTime: {type: Date, default:Date.now},
+        ipAddress: {type: String},
+        browserName: {type: String},
+        osType: {type: String},
+        deviseType: {type: String}
+    }]
 })
 
 bookmarkSchema.pre('save', function(next){
     if(this.isNew){
         let hashedUrl = shorthash.unique(this.originalUrl)
         this.hashedUrl = hashedUrl
-    } 
-    //console.log(shorthash.unique(this.originalUrl))
+    }
     next()
 })
 

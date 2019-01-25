@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { Bookmark } = require('../models/bookmark')
+const newUseragent = require('useragent')
+// const { userData } = require('../../userData')
 
 router.get('/', (req, res) => {
     Bookmark.find()
@@ -10,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    Bookmark.find({$or: [{id:id}, {hashedUrl: id}]})
+    Bookmark.findOne(id)
         .then((bookmark) => res.send(bookmark))
         .catch((err) => res.send(err))
 })
@@ -31,21 +33,6 @@ router.put('/:id', (req, res) => {
         .catch((err) => res.send(err))
 })
 
-// router.get('/:hash', (req, res) => {
-//     const hash = req.params.hash
-//     //console.log(hash)
-//     Bookmark.find({hashedUrl: 'vpcA6'})
-//         .then((bookmark) => res.send(bookmark))
-//         .catch((err) => res.send(err))
-// })
-
-// router.get('/tags/:name', (req, res) => {
-//     const name = req.params.name
-//     Bookmark.find({tags:name})
-//         .then((bookmark) => res.send(bookmark))
-//         .catch((err) => res.send(err))
-// })
-
 router.get('/tags/:tags', (req, res) => {
     const tags = req.params.tags.split(',')
     Bookmark.find({tags: {'$in': tags}})
@@ -60,5 +47,15 @@ router.delete('/:id', (req, res) =>{
         .then((bookmark) => res.send(bookmark))
         .catch((err) => res.send(err))
 })
+
+function getUseragent(reqData){
+    const agent = newUseragent.parse(reqData.headers['user-agent'])
+    const userInfo = {}
+    userInfo.ipAddress = reqData.connection.remoteAddress,
+    userInfo.browserName = agent.toAgent(),
+    userInfo.osType = agent.os.toString(),
+    userInfo.deviseType = agent.device.toString()
+    return userInfo
+}
 
 module.exports = {bookmarksRouter: router}
